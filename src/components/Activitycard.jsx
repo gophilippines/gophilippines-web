@@ -1,68 +1,43 @@
 import React from "react";
 //MUI
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import StarIcon from "@material-ui/icons/Star";
-//import Button from "@material-ui/core/Button";
+// import StarIcon from "@material-ui/icons/Star";
 //MUI Cards
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import { red } from "@material-ui/core/colors";
-
-const useStyles = makeStyles(theme => ({
-    card: {
-        maxWidth: 345
-    },
-    media: {
-        height: 0,
-        paddingTop: "56.25%" // 16:9
-    },
-    expand: {
-        transform: "rotate(0deg)",
-        marginLeft: "auto",
-        transition: theme.transitions.create("transform", {
-            duration: theme.transitions.duration.shortest
-        })
-    },
-    expandOpen: {
-        transform: "rotate(180deg)"
-    },
-    avatar: {
-        backgroundColor: red[500]
-    }
-}));
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 //className='no-gutter'
-function Topactivity() {
-    const classes = useStyles();
-
+function Topactivity(props) {
     return (
         <React.Fragment>
-            <Card className={classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={require("../assets/img/paella.jpg")}
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant=""></Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Grid container spacing={3}>
-                        <Grid item xs={8} className="text-success">
-                            <span>P 3,000 </span> | <small>Available</small>
-                        </Grid>
-                        <Grid item xs={4} className="text-right text-warning">
-                            <StarIcon /> 4.3
-                        </Grid>
-                    </Grid>
-                </CardActions>
+            <Card className="activityCard">
+                <Card.Img
+                    variant="top"
+                    src={props.card.imageURL}
+                    title="Contemplative Reptile"
+                />
+                <Card.Body>
+                    <Card.Title className="text-dark text-uppercase">
+                        {props.card.name}
+                    </Card.Title>
+                    <Row>
+                        <Col xs={8}>
+                            <b className="text-success">
+                                P {props.card.price}{" "}
+                            </b>
+                            <br /> <small>Available</small>
+                        </Col>
+                        <Col xs={4} className="text-right text-warning">
+                            <small className="font-weight-bold">
+                                <i className="fas fa-star"></i>{" "}
+                                {props.card.rating}
+                            </small>
+                        </Col>
+                    </Row>
+                </Card.Body>
+                {/* <Card.Footer>
+                    
+                </Card.Footer> */}
             </Card>
         </React.Fragment>
     );

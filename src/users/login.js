@@ -1,26 +1,18 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
-//import AppIcon from "../images/icon.png";
 
 // MUI Stuff
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import axios from "axios";
-const instance = axios.create({
-    baseURL: "https://asia-east2-dev-gophil-1009.cloudfunctions.net/api",
-    timeout: 1000,
-    headers: { "X-Custom-Header": "foobar" }
-});
+import Form from "react-bootstrap/Form";
 
-const token =
-    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImZhMWQ3NzBlZWY5ZWFhNjU0MzY1ZGE5MDhjNDIzY2NkNzY4ODkxMDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZGV2LWdvcGhpbC0xMDA5IiwiYXVkIjoiZGV2LWdvcGhpbC0xMDA5IiwiYXV0aF90aW1lIjoxNTcxMzAyMzkyLCJ1c2VyX2lkIjoiajZGN05Ha1FlNmJKRW1xQ1hoMW5Vem9pY0xXMiIsInN1YiI6Imo2RjdOR2tRZTZiSkVtcUNYaDFuVXpvaWNMVzIiLCJpYXQiOjE1NzEzMDIzOTIsImV4cCI6MTU3MTMwNTk5MiwiZW1haWwiOiJ0cnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInRyeUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.ZvDKrTzntqZlbIifrAD0eSZQyZhw2yAFcjDGa7IsManJCGM5BL8mKmITwIa8bAB4GCgYWow3_EFjCAUTraNlkB3A-TfSS4_7dPXATr_XOV5bvLoF_qz9C-GE3kUMqpOYgjj321_6Ztzuk4NFMqea-oHFkASBREMv4-qFJhE5a8bCIhFFJwaZnOB6-_tPhnGyLnGhXflOwZD3nyp2dKNur7UJHknCQUPF8jNoN0mS0SLJegI5QqBFkJWeeH3QupjF4z5qy3t6_HLSNOp9s90Suh7GBAndLkoHZ0EFBveBvSgOguKqUkWk93VMLHubD1aUwaCmnSon0NG5p_-8ia5vtA";
-instance.defaults.headers.common["Authorization"] = token;
-instance.defaults.headers.post["Content-Type"] = "application/json";
+import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
+
+//Redux
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/userActions";
 
 class login extends Component {
     constructor() {
@@ -31,30 +23,18 @@ class login extends Component {
             errors: {}
         };
     }
-
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
+        }
+    }
     handleSubmit = event => {
         event.preventDefault();
         const userData = {
             email_address: this.state.email,
             password: this.state.password
         };
-
-        axios
-            .post("/login", userData)
-            .then(res => {
-                console.log(res.data);
-                this.setState({
-                    loading: false
-                });
-                this.props.history.push("/dashboard");
-            })
-            .catch(err => {
-                // console.log(err);
-                // this.setState({
-                //     errors: err.data,
-                //     loading: false
-                // });
-            });
+        this.props.loginUser(userData, this.props.history);
     };
     handleChange = event => {
         this.setState({
@@ -62,43 +42,46 @@ class login extends Component {
         });
     };
     render() {
-        const { classes } = this.props;
-        const { loading } = this.state;
+        const {
+            UI: { loading }
+        } = this.props;
+        const { errors } = this.state;
 
         return (
-            <Grid container>
-                <Grid item sm />
-                <Grid item sm>
+            <Row>
+                <Col sm />
+                <Col sm>
                     {/* <img src={AppIcon} alt="monkey" className={classes.image} /> */}
-                    <Typography variant="h2">Login</Typography>
-                    <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField
+                    <h2>Login</h2>
+                    <Form noValidate onSubmit={this.handleSubmit}>
+                        <Form.Control
                             id="email"
                             name="email"
                             type="email"
                             label="Email"
-                            // helperText={errors.email_address}
-                            // error={errors.email ? true : false}
+                            helperText={errors.email_address}
+                            error={errors.email_address ? true : false}
                             value={this.state.email}
                             onChange={this.handleChange}
                             fullWidth
                         />
-                        <TextField
+                        <Form.Control
                             id="password"
                             name="password"
                             type="password"
                             label="Password"
-                            // helperText={errors.password}
-                            // error={errors.password ? true : false}
+                            helperText={errors.password}
+                            error={errors.password ? true : false}
                             value={this.state.password}
                             onChange={this.handleChange}
                             fullWidth
                         />
-                        {/* {errors.general && (
-                            <Typography variant="body2">
-                                {errors.general}
-                            </Typography>
-                        )} */}
+                        {errors && (
+                            <h5 className="text-danger">{errors.General}</h5>
+                        )}
+                        {errors.Error && (
+                            <h5 className="text-danger">{errors.Error}</h5>
+                        )}
                         <Button
                             type="submit"
                             variant="contained"
@@ -106,30 +89,32 @@ class login extends Component {
                             disabled={loading}
                         >
                             Login
-                            {loading && <CircularProgress size={30} />}
+                            {loading && <Spinner animation="border" />}
                         </Button>
-                    </form>
-                </Grid>
-                <Grid item sm />
-            </Grid>
+                    </Form>
+                </Col>
+                <Col sm />
+            </Row>
         );
     }
 }
 
 login.propTypes = {
-    classes: PropTypes.object.isRequired
-    // loginUser: PropTypes.func.isRequired,
-    // user: PropTypes.object.isRequired,
-    // UI: PropTypes.object.isRequired
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired
 };
 
-// const mapStateToProps = state => ({
-//     user: state.user,
-//     UI: state.UI
-// });
+const mapStateToProps = state => ({
+    user: state.user,
+    UI: state.UI
+});
 
-// const mapActionsToProps = {
-//     loginUser
-// };
+const mapActionsToProps = {
+    loginUser
+};
 
-export default login;
+export default connect(
+    mapStateToProps,
+    mapActionsToProps
+)(login);

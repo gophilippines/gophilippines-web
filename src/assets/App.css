@@ -6,6 +6,34 @@ body {
     background-color: #fff !important;
     font-size: 1rem !important;
 }
+
+/* Color Theme */
+.text-warning {
+    color: #ff5722 !important;
+}
+.text-success {
+    color: #4caf50 !important;
+}
+/* END Color Theme */
+.container {
+    max-width: 1280px;
+}
+a {
+    color: inherit;
+    text-decoration: none !important;
+}
+.megamenu-li {
+    position: static;
+}
+
+.megamenu {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 15px;
+}
+
 .no-gutter {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -19,6 +47,53 @@ body {
     background-color: rgb(220, 0, 78) !important;
 }
 
+/* Card custom style */
+
+.card {
+    color: hsl(0, 0%, 60%);
+    border-radius: 4px;
+    box-shadow: hsl(0, 0%, 86%) 0 0 10px;
+    border: none;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.activityCard:hover {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.12),
+        0 -1px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* City Card Style */
+.city_wrapper {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center center;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    height: 220px;
+}
+.city_wrapper a {
+    text-decoration: none;
+}
+.city_box {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.city_title_wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+.city_title {
+    display: inline;
+    color: #fff;
+    font-size: 1.7em;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #666;
+}
 /* Footer */
 .footer {
     /* position: absolute;
@@ -31,5 +106,5 @@ body {
 }
 /* Utilities */
 .highlight {
-    background-color: #f8f9fa;
+    background-color: #fafafa;
 }
