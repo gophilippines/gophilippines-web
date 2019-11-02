@@ -17,7 +17,7 @@ export default function reducer(state = [], action) {
         case "ADD_ACTIVITY":
             return {
                 ...state,
-                activity: [...state.activity, action.payload]
+                data: [...state, action.payload]
             };
 
         case "DELETE_ACTIVITY":
@@ -34,7 +34,7 @@ export default function reducer(state = [], action) {
 
 export const getActivity = () => dispatch => {
     axios
-        .get("/activityByCityId?id=3bhJa26hT9nbSfCvSzhp")
+        .get("/activityList")
         .then(res => {
             console.log(res.data);
             dispatch({
@@ -44,13 +44,30 @@ export const getActivity = () => dispatch => {
         })
         .catch(err => console.log(err));
 };
-export const addActivityAction = activity => dispatch => {
+
+export const addActivityAction = (activity, history) => dispatch => {
     axios
         .post(`/addActivity?id=${activity.city_id}`, activity)
         .then(res => {
-            dispatch({ type: "ADD_ACTIVITY" });
-            dispatch({ payload: res.data });
-            getActivity();
+            dispatch({
+                type: "ADD_ACTIVITY",
+                payload: res.data
+            });
+            history.push("/dashboard/activity");
+        })
+        .catch(err => {});
+};
+
+export const updateActivityAction = activity => dispatch => {
+    axios
+        .put(`/updateActivity?id=${activity.id}`, activity)
+        .then(res => {
+            console.log(res.data);
+            dispatch({
+                type: "UPDATE_ACTIVITY",
+                payload: res.data
+            });
+            // history.push("/dashboard/activity");
         })
         .catch(err => {});
 };

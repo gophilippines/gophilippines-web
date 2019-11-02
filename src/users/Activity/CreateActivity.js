@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addActivityAction, getActivity } from "../redux/ActivityRedux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addActivityAction } from "../../redux/ActivityRedux";
 // MUI
 // import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
-const [show, setShow] = useState(false);
-
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
-
 function Activity() {
     // const activityData = useSelector(state => state.activity);
-
-    const activityData = useSelector(state => state.activity.data);
-
-    console.log(activityData);
 
     const [activity, setActivity] = useState({});
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getActivity());
-    });
 
     const addActivity = activity => dispatch(addActivityAction(activity));
 
@@ -47,17 +33,6 @@ function Activity() {
         });
     };
 
-    // const [activityList, setActivityList] = useState([]);
-    // useEffect(() => {
-    //     async function fetchActivity() {
-    //         const fetchItem = await fetch(
-    //             `/activityByCityId?id=3bhJa26hT9nbSfCvSzhp`
-    //         );
-    //         const activityList = await fetchItem.json();
-    //         setActivityList(activityList);
-    //     }
-    //     fetchActivity();
-    // }, []);
     return (
         <div className="container mt-5 mb-5">
             <h1>Activity Page</h1>
@@ -136,53 +111,12 @@ function Activity() {
                                 />
                             </Col>
                         </Form.Group>
-
                         <Button type="submit" className="float-right">
                             Add Activity
                         </Button>
                     </Form>
                 </Col>
-                <Col>
-                    <table className="table">
-                        <thead>
-                            <tr></tr>
-                        </thead>
-                        <tbody>
-                            {activityData &&
-                                activityData[0].map(data => (
-                                    <tr key={data.id}>
-                                        <td>{data.name}</td>
-                                        <td>
-                                            <Button
-                                                variant="primary"
-                                                onClick={handleShow}
-                                            >
-                                                Launch demo modal
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
-                </Col>
             </Row>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Woohoo, you're reading this text in a modal!
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 }
