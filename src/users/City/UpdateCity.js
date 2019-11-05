@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-    updateActivityAction,
-    uploadActivityImageAction
-} from "../../redux/ActivityRedux";
+import { updateCityAction } from "../../redux/CityRedux";
 import Sidebar from "../../components/SideNav";
 import { Link } from "react-router-dom";
 // MUI
@@ -12,72 +9,46 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-function Activity({ match }) {
-    // const activityData = useSelector(state => state.activity);
+function City({ match }) {
+    // const cityData = useSelector(state => state.city);
 
-    const [activity, setActivity] = useState({});
+    const [city, setCity] = useState({});
 
     useEffect(() => {
         async function fetchItemData() {
-            const fetchItem = await fetch(
-                `/activityById?id=${match.params.id}`
-            );
+            const fetchItem = await fetch(`/cityById?id=${match.params.id}`);
             const item = await fetchItem.json();
-            setActivity(item);
+            setCity(item);
         }
         fetchItemData();
     }, [match]);
 
     const dispatch = useDispatch();
 
-    const updateActivity = activity => dispatch(updateActivityAction(activity));
-    const uploadActivityImage = formData =>
-        dispatch(uploadActivityImageAction(formData));
+    const updateCity = city => dispatch(updateCityAction(city));
 
     const onChange = event => {
-        setActivity({ ...activity, [event.target.name]: event.target.value });
+        setCity({ ...city, [event.target.name]: event.target.value });
     };
 
     const onSubmit = event => {
         event.preventDefault();
 
-        updateActivity({
-            id: activity.id,
-            name: activity.name,
-            details: activity.details,
-            address: activity.address,
-            city_id: activity.city_id,
-            recommended: Boolean.valueOf(activity.recommended),
-            price: activity.price
+        updateCity({
+            id: city.id,
+            name: city.name,
+            details: city.details,
+            recommended: city.recommended,
+            location: city.location
         });
-    };
-
-    const handleImageChange = event => {
-        const image = event.target.files[0];
-        const formData = new FormData();
-        formData.append("file", image);
-        uploadActivityImage({
-            id: activity.id,
-            data: formData
-        });
-        // this.props.uploadImage(formData);
     };
 
     return (
         <div id="wrapper">
             <Sidebar />
             <div className="page-content-wrapper">
-                <h1>Update Activity Page</h1>
+                <h1>Update City Page</h1>
                 <Row>
-                    <Col sm={3}>
-                        <img src={activity.imageURL} alt="" width="100%" />
-                        <br />
-                        <input
-                            type="file"
-                            id="imageInput"
-                            onChange={handleImageChange}
-                        />
-                    </Col>
                     <Col>
                         <Form onSubmit={onSubmit} className="mt-5">
                             <Form.Group as={Row}>
@@ -88,7 +59,7 @@ function Activity({ match }) {
                                     <Form.Control
                                         name="name"
                                         onChange={onChange}
-                                        value={activity.name}
+                                        value={city.name}
                                     />
                                 </Col>
                             </Form.Group>
@@ -100,31 +71,7 @@ function Activity({ match }) {
                                     <Form.Control
                                         name="details"
                                         onChange={onChange}
-                                        value={activity.details}
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    address
-                                </Form.Label>
-                                <Col>
-                                    <Form.Control
-                                        name="address"
-                                        onChange={onChange}
-                                        value={activity.address}
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    city_id
-                                </Form.Label>
-                                <Col>
-                                    <Form.Control
-                                        name="city_id"
-                                        onChange={onChange}
-                                        value={activity.city_id}
+                                        value={city.details}
                                     />
                                 </Col>
                             </Form.Group>
@@ -136,34 +83,35 @@ function Activity({ match }) {
                                     <Form.Control
                                         name="recommended"
                                         onChange={onChange}
-                                        value={activity.recommended}
+                                        value={city.recommended}
                                     />
                                 </Col>
                             </Form.Group>
+
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">
-                                    price
+                                    location
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
-                                        name="price"
+                                        name="location"
                                         onChange={onChange}
-                                        value={activity.price}
+                                        value={city.location}
                                     />
                                 </Col>
                             </Form.Group>
                             <Form.Group className="text-right">
                                 <Link
                                     className="btn btn-secondary btn-md mr-2"
-                                    to="/dashboard/activity"
+                                    to="/dashboard/city"
                                 >
                                     Cancel
                                 </Link>
                                 <Button
                                     type="submit"
-                                    className="btn btn-primary float-right"
+                                    className="btn btn-primary "
                                 >
-                                    Update Activity
+                                    Update City
                                 </Button>
                             </Form.Group>
                         </Form>
@@ -174,4 +122,4 @@ function Activity({ match }) {
     );
 }
 
-export default Activity;
+export default City;

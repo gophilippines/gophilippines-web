@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Banner from "../components/ActivityBanner";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Footer from "../components/Footer";
+import Avatar from "react-avatar";
 //MUI
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,6 +11,7 @@ import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Media from "react-bootstrap/Media";
 //MUI Icon
 // import StarIcon from "@material-ui/icons/Star";
 
@@ -20,22 +23,22 @@ export default function ActivityDetail({ match }) {
 
     useEffect(() => {
         async function fetchItemData() {
-            const fetchItem = await fetch(
-                `/activityById?id=${match.params.id}`
-            );
-            const item = await fetchItem.json();
-            setItem(item);
+            const response = await fetch(`/activityById?id=${match.params.id}`);
+            const item = await response.json();
+            if (response.ok) {
+                setItem(item);
+            }
         }
         fetchItemData();
     }, [match]);
 
     useEffect(() => {
         async function fetchReviews() {
-            const fetchItem = await fetch(
-                `/showComments?id=${match.params.id}`
-            );
-            const reviews = await fetchItem.json();
-            setReviews(reviews);
+            const response = await fetch(`/showComments?id=${match.params.id}`);
+            const reviews = await response.json();
+            if (response.ok) {
+                setReviews(reviews);
+            }
         }
         fetchReviews();
     }, [match]);
@@ -51,47 +54,66 @@ export default function ActivityDetail({ match }) {
                         <hr />
                         <p className="pt-4 pb-4">{item.details}</p>
                         <hr />
-                        <Row>
-                            <Col>
-                                <h4>
-                                    Reviews{" "}
-                                    <Badge variant="primary">
-                                        {item.totalRatingCount}
-                                    </Badge>
-                                </h4>
-                            </Col>
-                            <Col className="text-right">
-                                <h5 className="text-warning">
-                                    <i className="fas fa-star"></i>
-                                    {item.rating}
-                                </h5>
-                            </Col>
-                        </Row>
+                        <div className="highlight p-3 mb-3">
+                            <Row>
+                                <Col>
+                                    <h4 className="m-0">
+                                        Reviews{" "}
+                                        <Badge variant="primary">
+                                            {item.totalRatingCount}
+                                        </Badge>
+                                    </h4>
+                                </Col>
+                                <Col className="text-right">
+                                    <h5 className="text-warning m-0">
+                                        <i className="fas fa-star mr-2"></i>
+                                        {item.rating}
+                                    </h5>
+                                </Col>
+                            </Row>
+                        </div>
 
-                        {reviews.map(review => (
-                            <div className="reviews-wrapper" key={review.id}>
-                                <Row>
-                                    <Col>
-                                        <h6>
-                                            {review.name}
-                                            <span className="text-warning ml-2">
-                                                <i className="fas fa-star"></i>
-                                                {review.rate}
-                                            </span>
-                                        </h6>
-                                    </Col>
-                                    <Col className="text-right">
-                                        <small>
-                                            {dayjs(
-                                                review.dateCreated
-                                            ).fromNow()}
-                                        </small>
-                                    </Col>
-                                </Row>
-                                <p>{review.comment}</p>
-                                <hr />
-                            </div>
-                        ))}
+                        {reviews &&
+                            reviews.map(review => (
+                                <div
+                                    className="reviews-wrapper"
+                                    key={review.id}
+                                >
+                                    <Media className="pl-3 pr-3">
+                                        <Avatar
+                                            name={review.name}
+                                            size="50"
+                                            round={true}
+                                            className="mr-3"
+                                        />
+                                        <Media.Body>
+                                            <Row className="mb-2 mt-2">
+                                                <Col>
+                                                    <h5 className="m-0">
+                                                        {review.name}
+                                                    </h5>
+                                                    <small className="text-secondary">
+                                                        {dayjs(
+                                                            review.dateCreated
+                                                        ).fromNow()}
+                                                    </small>
+                                                </Col>
+                                                <Col className="text-right">
+                                                    <span className="text-warning">
+                                                        <i className="fas fa-star mr-2"></i>
+                                                        {review.rate}
+                                                    </span>
+                                                </Col>
+                                            </Row>
+                                            <p className="m-0">
+                                                {review.comment}
+                                            </p>
+                                        </Media.Body>
+                                    </Media>
+
+                                    <hr />
+                                </div>
+                            ))}
                     </Col>
                     <Col xs={4}>
                         <Card>
@@ -103,6 +125,7 @@ export default function ActivityDetail({ match }) {
                     </Col>
                 </Row>
             </Container>
+            <Footer />
         </React.Fragment>
     );
 }

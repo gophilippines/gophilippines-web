@@ -7,6 +7,7 @@ import TopActivity from "../components/Topactivity";
 import CallToAction from "../components/CallToAction";
 import Gridgallery from "../components/Gridgallery";
 import Partnership from "../components/Partnership";
+import Footer from "../components/Footer";
 
 //MUI
 import Container from "react-bootstrap/Container";
@@ -36,6 +37,7 @@ class home extends Component {
                 <Container className="container pt-5 pb-5">
                     <Partnership />
                 </Container>
+                <Footer />
             </div>
         );
     }

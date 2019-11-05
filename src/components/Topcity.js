@@ -35,7 +35,13 @@ class Topcity extends Component {
                 <Row>
                     {this.state.city.map(card => (
                         <Col xs={3} key={card.id}>
-                            <div className="city_wrapper">
+                            <div
+                                className="city_wrapper"
+                                style={{
+                                    backgroundImage:
+                                        "url(" + card.imageURL + ")"
+                                }}
+                            >
                                 <Link to={`/city/${card.id}`}>
                                     <div className="city_box text-center">
                                         <div className="city_title_wrapper">

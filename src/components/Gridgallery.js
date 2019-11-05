@@ -15,7 +15,7 @@ class Gridgallery extends Component {
     }
     componentDidMount() {
         axios
-            .get("/activitybyrecommended")
+            .get("/activityRandom")
             .then(res => {
                 this.setState({
                     activity: res.data

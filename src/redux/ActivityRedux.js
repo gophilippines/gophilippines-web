@@ -36,7 +36,6 @@ export const getActivity = () => dispatch => {
     axios
         .get("/activityList")
         .then(res => {
-            console.log(res.data);
             dispatch({
                 type: "GET_ACTIVITY",
                 payload: res.data
@@ -62,7 +61,6 @@ export const updateActivityAction = activity => dispatch => {
     axios
         .put(`/updateActivity?id=${activity.id}`, activity)
         .then(res => {
-            console.log(res.data);
             dispatch({
                 type: "UPDATE_ACTIVITY",
                 payload: res.data
@@ -72,7 +70,22 @@ export const updateActivityAction = activity => dispatch => {
         .catch(err => {});
 };
 
-export const deleteTodoAction = ActivityID => ({
-    type: "DELETE_ACTIVITY",
-    payload: ActivityID
-});
+export const deleteActivityAction = activityID => dispatch => {
+    axios
+        .delete(`/deleteActivity/${activityID}`)
+        .then(res => {
+            dispatch({
+                type: "DELETE_ACTIVITY",
+                payload: res.data
+            });
+        })
+        .catch(err => {});
+};
+
+export const uploadActivityImageAction = activity => dispatch => {
+    axios
+        .post(`/activityImageUpload/${activity.id}`, activity.data)
+        .then(res => {
+            console.log(res);
+        });
+};

@@ -13,6 +13,7 @@ import Spinner from "react-bootstrap/Spinner";
 //Redux
 import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/userActions";
+import Container from "react-bootstrap/Container";
 
 class login extends Component {
     constructor() {
@@ -48,53 +49,58 @@ class login extends Component {
         const { errors } = this.state;
 
         return (
-            <Row>
-                <Col sm />
-                <Col sm>
-                    {/* <img src={AppIcon} alt="monkey" className={classes.image} /> */}
-                    <h2>Login</h2>
-                    <Form noValidate onSubmit={this.handleSubmit}>
-                        <Form.Control
-                            id="email"
-                            name="email"
-                            type="email"
-                            label="Email"
-                            helperText={errors.email_address}
-                            error={errors.email_address ? true : false}
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            fullWidth
-                        />
-                        <Form.Control
-                            id="password"
-                            name="password"
-                            type="password"
-                            label="Password"
-                            helperText={errors.password}
-                            error={errors.password ? true : false}
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            fullWidth
-                        />
-                        {errors && (
-                            <h5 className="text-danger">{errors.General}</h5>
-                        )}
-                        {errors.Error && (
-                            <h5 className="text-danger">{errors.Error}</h5>
-                        )}
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            disabled={loading}
-                        >
-                            Login
-                            {loading && <Spinner animation="border" />}
-                        </Button>
-                    </Form>
-                </Col>
-                <Col sm />
-            </Row>
+            <Container>
+                <Row>
+                    <Col sm />
+                    <Col sm className="mt-5 text-center">
+                        {/* <img src={AppIcon} alt="monkey" className={classes.image} /> */}
+                        <h2 className="mb-5">Login</h2>
+                        <Form noValidate onSubmit={this.handleSubmit}>
+                            <Form.Control
+                                id="email"
+                                name="email"
+                                type="email"
+                                label="Email"
+                                className="mb-3"
+                                helperText={errors.email_address}
+                                error={errors.email_address ? true : false}
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                fullWidth
+                            />
+                            <Form.Control
+                                id="password"
+                                name="password"
+                                type="password"
+                                label="Password"
+                                className="mb-3"
+                                helperText={errors.password}
+                                error={errors.password ? true : false}
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                fullWidth
+                            />
+                            {errors && (
+                                <h5 className="text-danger">
+                                    {errors.General}
+                                </h5>
+                            )}
+                            {errors.Error && (
+                                <h5 className="text-danger">{errors.Error}</h5>
+                            )}
+                            <Button
+                                type="submit"
+                                variant="primary"
+                                disabled={loading}
+                            >
+                                Login
+                                {loading && <Spinner animation="border" />}
+                            </Button>
+                        </Form>
+                    </Col>
+                    <Col sm />
+                </Row>
+            </Container>
         );
     }
 }

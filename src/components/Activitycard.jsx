@@ -11,15 +11,24 @@ function Topactivity(props) {
     return (
         <React.Fragment>
             <Card className="activityCard">
-                <Card.Img
+                {/* <Card.Img
                     variant="top"
                     src={props.card.imageURL}
                     title="Contemplative Reptile"
-                />
+                /> */}
+                <div
+                    className="m_bg card-img-top"
+                    style={{
+                        backgroundImage: "url(" + props.card.imageURL + ")"
+                    }}
+                ></div>
+
                 <Card.Body>
-                    <Card.Title className="text-dark text-uppercase">
+                    <Card.Title className="text-dark text-uppercase h6 mb-0">
                         {props.card.name}
                     </Card.Title>
+                </Card.Body>
+                <Card.Footer>
                     <Row>
                         <Col xs={8}>
                             <b className="text-success">
@@ -34,10 +43,7 @@ function Topactivity(props) {
                             </small>
                         </Col>
                     </Row>
-                </Card.Body>
-                {/* <Card.Footer>
-                    
-                </Card.Footer> */}
+                </Card.Footer>
             </Card>
         </React.Fragment>
     );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addActivityAction } from "../../redux/ActivityRedux";
+import { addCityAction } from "../../redux/CityRedux";
 import Sidebar from "../../components/SideNav";
 import { Link } from "react-router-dom";
 // MUI
@@ -9,29 +9,25 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-function Activity() {
-    // const activityData = useSelector(state => state.activity);
-
-    const [activity, setActivity] = useState({});
+function City() {
+    const [city, setCity] = useState({});
 
     const dispatch = useDispatch();
 
-    const addActivity = activity => dispatch(addActivityAction(activity));
+    const addCity = city => dispatch(addCityAction(city));
 
     const onChange = event => {
-        setActivity({ ...activity, [event.target.name]: event.target.value });
+        setCity({ ...city, [event.target.name]: event.target.value });
     };
 
     const onSubmit = event => {
         event.preventDefault();
 
-        addActivity({
-            name: activity.name,
-            details: activity.details,
-            address: activity.address,
-            city_id: activity.city_id,
-            recommended: Boolean.valueOf(activity.recommended),
-            price: activity.price
+        addCity({
+            name: city.name,
+            details: city.details,
+            recommended: city.recommended,
+            location: city.location
         });
     };
 
@@ -39,7 +35,7 @@ function Activity() {
         <div id="wrapper">
             <Sidebar />
             <div className="page-content-wrapper">
-                <h1>Activity Page</h1>
+                <h1>City Page</h1>
                 <Row>
                     <Col>
                         <Form onSubmit={onSubmit} className="mt-5">
@@ -51,7 +47,7 @@ function Activity() {
                                     <Form.Control
                                         name="name"
                                         onChange={onChange}
-                                        value={activity.name}
+                                        value={city.name}
                                     />
                                 </Col>
                             </Form.Group>
@@ -63,31 +59,7 @@ function Activity() {
                                     <Form.Control
                                         name="details"
                                         onChange={onChange}
-                                        value={activity.details}
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    address
-                                </Form.Label>
-                                <Col>
-                                    <Form.Control
-                                        name="address"
-                                        onChange={onChange}
-                                        value={activity.address}
-                                    />
-                                </Col>
-                            </Form.Group>
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    city_id
-                                </Form.Label>
-                                <Col>
-                                    <Form.Control
-                                        name="city_id"
-                                        onChange={onChange}
-                                        value={activity.city_id}
+                                        value={city.details}
                                     />
                                 </Col>
                             </Form.Group>
@@ -99,32 +71,31 @@ function Activity() {
                                     <Form.Control
                                         name="recommended"
                                         onChange={onChange}
-                                        value={activity.recommended}
+                                        value={city.recommended}
                                     />
                                 </Col>
                             </Form.Group>
+
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">
-                                    price
+                                    location
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
-                                        name="price"
+                                        name="location"
                                         onChange={onChange}
-                                        value={activity.price}
+                                        value={city.location}
                                     />
                                 </Col>
                             </Form.Group>
                             <Form.Group className="text-right">
                                 <Link
                                     className="btn btn-secondary btn-md mr-2"
-                                    to="/dashboard/activity"
+                                    to="/dashboard/city"
                                 >
                                     Cancel
                                 </Link>
-                                <Button type="submit" className="float-right">
-                                    Add Activity
-                                </Button>
+                                <Button type="submit">Add City</Button>
                             </Form.Group>
                         </Form>
                     </Col>
@@ -134,4 +105,4 @@ function Activity() {
     );
 }
 
-export default Activity;
+export default City;

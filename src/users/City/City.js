@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivity, deleteActivityAction } from "../../redux/ActivityRedux";
+import { getCity, deleteCityAction } from "../../redux/CityRedux";
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/SideNav";
 // MUI
@@ -9,15 +9,15 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function Activity() {
-    const activityData = useSelector(state => state.activities.data);
+function City() {
+    const cityData = useSelector(state => state.cities.data);
 
     const dispatch = useDispatch();
 
-    const deleteActivity = activity => dispatch(deleteActivityAction(activity));
+    const deleteCity = city => dispatch(deleteCityAction(city));
 
     const initFetch = useCallback(() => {
-        dispatch(getActivity());
+        dispatch(getCity());
     }, [dispatch]);
 
     useEffect(() => {
@@ -26,20 +26,20 @@ function Activity() {
 
     const onDelete = event => {
         event.preventDefault();
-        deleteActivity(event.target.id);
+        deleteCity(event.target.id);
         console.log(event.target.id);
     };
 
-    // const [activityList, setActivityList] = useState([]);
+    // const [cityList, setCityList] = useState([]);
     // useEffect(() => {
-    //     async function fetchActivity() {
+    //     async function fetchCity() {
     //         const fetchItem = await fetch(
-    //             `/activityByCityId?id=3bhJa26hT9nbSfCvSzhp`
+    //             `/cityByCityId?id=3bhJa26hT9nbSfCvSzhp`
     //         );
-    //         const activityList = await fetchItem.json();
-    //         setActivityList(activityList);
+    //         const cityList = await fetchItem.json();
+    //         setCityList(cityList);
     //     }
-    //     fetchActivity();
+    //     fetchCity();
     // }, []);
     return (
         <div id="wrapper">
@@ -47,14 +47,14 @@ function Activity() {
             <div className="page-content-wrapper">
                 <Row>
                     <Col>
-                        <h4>Activity List Page</h4>
+                        <h4>City List Page</h4>
                     </Col>
                     <Col className="text-right">
                         <Link
                             className="btn btn-success btn-md"
                             to="/dashboard/CreateActivity"
                         >
-                            Add Activity
+                            Add City
                         </Link>
                     </Col>
                 </Row>
@@ -63,18 +63,18 @@ function Activity() {
                         <table className="table table-bordered">
                             <thead>
                                 <tr>
-                                    <td>Activity Name</td>
+                                    <td>City Name</td>
                                     <td className="text-center">Action</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                {activityData &&
-                                    activityData[0].map(data => (
-                                        <tr key={data.id}>
-                                            <td>{data.name}</td>
+                                {cityData &&
+                                    cityData[0].map(city => (
+                                        <tr key={city.id}>
+                                            <td>{city.name}</td>
                                             <td className="text-center">
                                                 <Link
-                                                    to={`/dashboard/updateActivity/${data.id}`}
+                                                    to={`/dashboard/updateCity/${city.id}`}
                                                     className="btn btn-primary btn-md mr-2"
                                                 >
                                                     <i class="fas fa-pencil-alt"></i>
@@ -83,7 +83,7 @@ function Activity() {
                                                 <Button
                                                     className="btn btn-danger btn-md"
                                                     variant="danger"
-                                                    id={data.id}
+                                                    id={city.id}
                                                     onClick={onDelete}
                                                 >
                                                     <i class="fas fa-trash-alt"></i>
@@ -100,4 +100,4 @@ function Activity() {
     );
 }
 
-export default Activity;
+export default City;

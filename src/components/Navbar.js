@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 //className='no-gutter'
 function NavbarTop() {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" sticky={"top"}>
             <Container className="no-gutter">
                 <Navbar.Brand href="/">Go Philippines</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

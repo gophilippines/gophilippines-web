@@ -5,14 +5,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-//MUI Icons
-// import MailIcon from "@material-ui/icons/Mail";
-// import PhoneIcon from "@material-ui/icons/Phone";
-// import LocationOnIcon from "@material-ui/icons/LocationOn";
-// import FacebookIcon from "@material-ui/icons/Facebook";
-// import TwitterIcon from "@material-ui/icons/Twitter";
-// import InstagramIcon from "@material-ui/icons/Instagram";
-
 export default function StickyFooter() {
     return (
         <footer className="footer">
@@ -22,37 +14,34 @@ export default function StickyFooter() {
                         <h6 className="mb-3">About</h6>
                         Lorem Ipsum is simply dummy text of the printing and
                         typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.
+                        industry's standard dummy text ever since the 1500s
                     </Col>
                     <Col xs={3}>
                         <h6 className="mb-3">Contact</h6>
                         <a href="#simple-list">
-                            <h5>
-                                {/* <MailIcon className="mr-2" /> sample@mail.com */}
-                            </h5>
+                            <h6>
+                                <i className="fas fa-envelope mr-2"></i>
+                                sample@mail.com
+                            </h6>
                         </a>
                         <a href="#simple-list">
-                            <h5>
-                                {/* <PhoneIcon className="mr-2" /> (123) 123-3154 */}
-                            </h5>
+                            <h6>
+                                <i className="fas fa-phone-alt mr-2"></i>
+                                (123) 123-3154
+                            </h6>
                         </a>
 
                         <p>
-                            {/* <LocationOnIcon className="mr-2" /> */}
+                            <i className="fas fa-map-marker-alt mr-2"></i>
                             Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry
+                            typesetting industry.
                         </p>
                     </Col>
                     <Col xs={3}>
                         <h6 className="mb-3">Terms</h6>
                         Lorem Ipsum is simply dummy text of the printing and
                         typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.
+                        industry's standard dummy text ever since the 1500s
                     </Col>
                     <Col xs={3}>
                         <form className="form-inline mb-3">
@@ -76,28 +65,28 @@ export default function StickyFooter() {
                                 className="btn btn-transparent text-white"
                                 target="_blank"
                             >
-                                {/* <FacebookIcon /> */}
+                                <i className="fab fa-facebook-f"></i>
                             </a>
                             <a
                                 href="#asd"
                                 className="btn btn-transparent text-white"
                                 target="_blank"
                             >
-                                {/* <TwitterIcon /> */}
+                                <i className="fab fa-twitter"></i>
                             </a>
                             <a
                                 href="#asd"
                                 className="btn btn-transparent text-white"
                                 target="_blank"
                             >
-                                {/* <InstagramIcon /> */}
+                                <i className="fab fa-instagram"></i>
                             </a>
                             <a
                                 href="#asd"
                                 className="btn btn-transparent text-white"
                                 target="_blank"
                             >
-                                {/* <MailIcon /> */}
+                                <i className="fas fa-envelope"></i>
                             </a>
                         </div>
                     </Col>
