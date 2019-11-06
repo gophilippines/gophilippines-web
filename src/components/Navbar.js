@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //MUI
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-//className='no-gutter'
 function NavbarTop() {
+    const [cityList, setCityList] = useState([]);
+    useEffect(() => {
+        async function fetchCity() {
+            const response = await fetch(`/cityList`);
+            const cityList = await response.json();
+            if (response.ok) {
+                setCityList(cityList);
+            }
+        }
+        fetchCity();
+    }, []);
+
     return (
         <Navbar bg="light" expand="lg" sticky={"top"}>
             <Container className="no-gutter">
@@ -29,52 +42,27 @@ function NavbarTop() {
                                 className="dropdown-menu megamenu"
                                 aria-labelledby="dropdown01"
                             >
-                                <div className="row">
-                                    <div className="col-sm-6 col-lg-3">
-                                        <h5>Links</h5>
-                                        <a
-                                            className="dropdown-item"
-                                            href="#asdasd"
-                                        >
-                                            Another action
-                                        </a>
-                                    </div>
-                                    <div className="col-sm-6 col-lg-3">
-                                        <h5>More Links</h5>
-                                    </div>
-                                    <div className="col-sm-6 col-lg-3">
-                                        <h5>Paragraph</h5>
-                                    </div>
-                                    <div className="col-sm-6 col-lg-3">
-                                        <h5>Image</h5>
-                                        <img
-                                            src="https://source.unsplash.com/250x150/?sig=4"
-                                            alt="..."
-                                            width=" 100%"
-                                        />
-                                    </div>
-                                </div>
+                                <Row>
+                                    <Col sm={12}>
+                                        <h5>Select City</h5>
+                                    </Col>
+                                    {cityList &&
+                                        cityList.map(city => (
+                                            <Col
+                                                sm={2}
+                                                className="mb-2"
+                                                key={city.id}
+                                            >
+                                                <Link
+                                                    to={`/city/${city.id}`}
+                                                    className="btn btn-light w-100"
+                                                >
+                                                    {city.name}
+                                                </Link>
+                                            </Col>
+                                        ))}
+                                </Row>
                             </div>
-                        </li>
-                        <li className="nav-item ">
-                            <Link
-                                variant="button"
-                                color="textPrimary"
-                                to="/login"
-                                className="nav-link"
-                            >
-                                Login
-                            </Link>
-                        </li>
-                        <li className="nav-item ">
-                            <Link
-                                variant="button"
-                                color="textPrimary"
-                                to="/signup"
-                                className="nav-link"
-                            >
-                                signup
-                            </Link>
                         </li>
                     </ul>
                 </Navbar>

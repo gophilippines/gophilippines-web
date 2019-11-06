@@ -6,12 +6,24 @@ import {
 } from "../../redux/ActivityRedux";
 import Sidebar from "../../components/SideNav";
 import { Link } from "react-router-dom";
+
 // MUI
 // import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
+// Require Editor CSS files.
+// Require Editor JS files.
+import "froala-editor/js/froala_editor.pkgd.min.js";
+
+// Require Editor CSS files.
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
+
+import FroalaEditor from "react-froala-wysiwyg";
+
 function Activity({ match }) {
     // const activityData = useSelector(state => state.activity);
 
@@ -37,7 +49,9 @@ function Activity({ match }) {
     const onChange = event => {
         setActivity({ ...activity, [event.target.name]: event.target.value });
     };
-
+    const handleWYSIWYGChange = content => {
+        setActivity({ ...activity, details: content });
+    };
     const onSubmit = event => {
         event.preventDefault();
 
@@ -67,7 +81,8 @@ function Activity({ match }) {
         <div id="wrapper">
             <Sidebar />
             <div className="page-content-wrapper">
-                <h1>Update Activity Page</h1>
+                <h4>Update Activity Page</h4>
+                <hr />
                 <Row>
                     <Col sm={3}>
                         <img src={activity.imageURL} alt="" width="100%" />
@@ -79,10 +94,10 @@ function Activity({ match }) {
                         />
                     </Col>
                     <Col>
-                        <Form onSubmit={onSubmit} className="mt-5">
+                        <Form onSubmit={onSubmit}>
                             <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    name
+                                <Form.Label column sm="2">
+                                    Name
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
@@ -93,20 +108,26 @@ function Activity({ match }) {
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    details
+                                <Form.Label column sm="2">
+                                    Details
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control
+                                    <FroalaEditor
+                                        tag="textarea"
+                                        // config={this.config}
+                                        model={activity.details}
+                                        onModelChange={handleWYSIWYGChange}
+                                    />
+                                    {/* <Form.Control
                                         name="details"
                                         onChange={onChange}
                                         value={activity.details}
-                                    />
+                                    /> */}
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    address
+                                <Form.Label column sm="2">
+                                    Address
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
@@ -117,8 +138,8 @@ function Activity({ match }) {
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    city_id
+                                <Form.Label column sm="2">
+                                    City
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
@@ -129,27 +150,47 @@ function Activity({ match }) {
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    recommended
-                                </Form.Label>
                                 <Col>
-                                    <Form.Control
-                                        name="recommended"
-                                        onChange={onChange}
-                                        value={activity.recommended}
-                                    />
+                                    <Row>
+                                        <Form.Label column sm="4">
+                                            Price
+                                        </Form.Label>
+                                        <Col>
+                                            <Form.Control
+                                                name="price"
+                                                onChange={onChange}
+                                                value={activity.price}
+                                            />
+                                        </Col>
+                                    </Row>
                                 </Col>
-                            </Form.Group>
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="3">
-                                    price
-                                </Form.Label>
                                 <Col>
-                                    <Form.Control
-                                        name="price"
-                                        onChange={onChange}
-                                        value={activity.price}
-                                    />
+                                    <Row>
+                                        <Form.Label column sm="4">
+                                            Recommended ?
+                                        </Form.Label>
+                                        <Col>
+                                            <Form.Control
+                                                as="select"
+                                                name="recommended"
+                                                onChange={onChange}
+                                                value={activity.recommended}
+                                            >
+                                                <option
+                                                    value="true"
+                                                    className="text-capetalize"
+                                                >
+                                                    true
+                                                </option>
+                                                <option
+                                                    value="false"
+                                                    className="text-capetalize"
+                                                >
+                                                    false
+                                                </option>
+                                            </Form.Control>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Form.Group>
                             <Form.Group className="text-right">

@@ -27,7 +27,7 @@ function Activity() {
     const onDelete = event => {
         event.preventDefault();
         deleteActivity(event.target.id);
-        console.log(event.target.id);
+        // console.log(event.target.id);
     };
 
     // const [activityList, setActivityList] = useState([]);
@@ -64,6 +64,7 @@ function Activity() {
                             <thead>
                                 <tr>
                                     <td>Activity Name</td>
+                                    <td>Recommended</td>
                                     <td className="text-center">Action</td>
                                 </tr>
                             </thead>
@@ -72,12 +73,13 @@ function Activity() {
                                     activityData[0].map(data => (
                                         <tr key={data.id}>
                                             <td>{data.name}</td>
+                                            <td>{String(data.recommended)}</td>
                                             <td className="text-center">
                                                 <Link
                                                     to={`/dashboard/updateActivity/${data.id}`}
                                                     className="btn btn-primary btn-md mr-2"
                                                 >
-                                                    <i class="fas fa-pencil-alt"></i>
+                                                    <i className="fas fa-pencil-alt"></i>
                                                 </Link>
 
                                                 <Button
@@ -86,7 +88,10 @@ function Activity() {
                                                     id={data.id}
                                                     onClick={onDelete}
                                                 >
-                                                    <i class="fas fa-trash-alt"></i>
+                                                    <i
+                                                        className="fas fa-trash-alt"
+                                                        id={data.id}
+                                                    ></i>
                                                 </Button>
                                             </td>
                                         </tr>

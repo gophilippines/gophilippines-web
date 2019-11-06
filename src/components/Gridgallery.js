@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Activitycard from "./Activitycard";
+import { Link } from "react-router-dom";
 //MUI
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -47,8 +48,14 @@ class Gridgallery extends Component {
                 <Col xs={6}>
                     <Row>
                         {this.state.activity.map(card => (
-                            <Col xs={6} key={card.id} className="mb-3">
-                                <Activitycard card={card} />
+                            <Col
+                                xs={6}
+                                key={card.id + "gallery"}
+                                className="mb-3"
+                            >
+                                <Link to={`/activity/${card.id}`}>
+                                    <Activitycard card={card} />
+                                </Link>
                             </Col>
                         ))}
                     </Row>

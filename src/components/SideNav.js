@@ -7,14 +7,30 @@ function SideBar() {
         <React.Fragment>
             <div id="sidebar-wrapper">
                 <ul className="sidebar-nav">
-                    <li>
-                        <Link to="/dashboard">Dashboard</Link>
+                    <li className="nav-item ">
+                        <Link to="/dashboard" className="nav-link">
+                            Dashboard
+                        </Link>
                     </li>
-                    <li>
-                        <Link to="/dashboard/activity">Activity</Link>
+                    <li className="nav-item ">
+                        <Link to="/dashboard/activity" className="nav-link">
+                            Activity
+                        </Link>
                     </li>
-                    <li>
-                        <Link to="/dashboard/city">City</Link>
+                    <li className="nav-item ">
+                        <Link to="/dashboard/city" className="nav-link">
+                            City
+                        </Link>
+                    </li>
+                    <li className="nav-item ">
+                        <Link to="/login" className="nav-link">
+                            Login
+                        </Link>
+                    </li>
+                    <li className="nav-item ">
+                        <Link to="/signup" className="nav-link">
+                            signup
+                        </Link>
                     </li>
                 </ul>
             </div>

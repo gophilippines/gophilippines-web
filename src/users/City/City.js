@@ -30,17 +30,6 @@ function City() {
         console.log(event.target.id);
     };
 
-    // const [cityList, setCityList] = useState([]);
-    // useEffect(() => {
-    //     async function fetchCity() {
-    //         const fetchItem = await fetch(
-    //             `/cityByCityId?id=3bhJa26hT9nbSfCvSzhp`
-    //         );
-    //         const cityList = await fetchItem.json();
-    //         setCityList(cityList);
-    //     }
-    //     fetchCity();
-    // }, []);
     return (
         <div id="wrapper">
             <Sidebar />
@@ -77,7 +66,7 @@ function City() {
                                                     to={`/dashboard/updateCity/${city.id}`}
                                                     className="btn btn-primary btn-md mr-2"
                                                 >
-                                                    <i class="fas fa-pencil-alt"></i>
+                                                    <i className="fas fa-pencil-alt"></i>
                                                 </Link>
 
                                                 <Button
@@ -86,7 +75,10 @@ function City() {
                                                     id={city.id}
                                                     onClick={onDelete}
                                                 >
-                                                    <i class="fas fa-trash-alt"></i>
+                                                    <i
+                                                        className="fas fa-trash-alt"
+                                                        id={city.id}
+                                                    ></i>
                                                 </Button>
                                             </td>
                                         </tr>

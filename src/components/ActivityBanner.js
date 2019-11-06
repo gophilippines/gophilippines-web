@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 
-function ControlledCarousel() {
+function ControlledCarousel(props) {
     const [index, setIndex] = useState(0);
     const [direction, setDirection] = useState(null);
 
@@ -15,14 +15,19 @@ function ControlledCarousel() {
             activeIndex={index}
             direction={direction}
             onSelect={handleSelect}
+            className="activity_banner"
         >
-            <Carousel.Item>
-                <img
+            <Carousel.Item
+                className="m_bg"
+                style={{
+                    backgroundImage: "url(" + props.image + ")"
+                }}
+            >
+                {/* <img
                     className="d-block w-100"
-                    src={require("../assets/img/1.svg")}
+                    src={props.image}
                     alt="First slide"
-                    height="500"
-                />
+                /> */}
                 <Carousel.Caption>
                     <h3>First slide label</h3>
                     <p>
@@ -31,13 +36,17 @@ function ControlledCarousel() {
                     </p>
                 </Carousel.Caption>
             </Carousel.Item>
-            <Carousel.Item>
-                <img
+            <Carousel.Item
+                className="m_bg"
+                style={{
+                    backgroundImage: "url(" + props.image + ")"
+                }}
+            >
+                {/* <img
                     className="d-block w-100"
                     src={require("../assets/img/2.svg")}
                     alt="Second slide"
-                    height="500"
-                />
+                /> */}
 
                 <Carousel.Caption>
                     <h3>Second slide label</h3>
@@ -46,13 +55,17 @@ function ControlledCarousel() {
                     </p>
                 </Carousel.Caption>
             </Carousel.Item>
-            <Carousel.Item>
-                <img
+            <Carousel.Item
+                className="m_bg"
+                style={{
+                    backgroundImage: "url(" + props.image + ")"
+                }}
+            >
+                {/* <img
                     className="d-block w-100"
                     src={require("../assets/img/3.svg")}
                     alt="Third slide"
-                    height="500"
-                />
+                /> */}
 
                 <Carousel.Caption>
                     <h3>Third slide label</h3>

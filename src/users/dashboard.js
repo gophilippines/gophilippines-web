@@ -9,10 +9,10 @@ class Dashboard extends Component {
                 <div className="page-content-wrapper">
                     {/* <a
                         href="javascript:void(0)"
-                        class="btn btn-default"
+                        className="btn btn-default"
                         id="menu-toggle"
                     >
-                        <span class="glyphicon glyphicon-th-list"></span>test
+                        <span className="glyphicon glyphicon-th-list"></span>test
                     </a> */}
                     Dashboard
                 </div>

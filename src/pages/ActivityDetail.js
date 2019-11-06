@@ -3,20 +3,25 @@ import Banner from "../components/ActivityBanner";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Footer from "../components/Footer";
-import Avatar from "react-avatar";
+import Pagination from "../components/Pagination";
+import Comments from "../components/Comments";
 //MUI
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Media from "react-bootstrap/Media";
+import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 //MUI Icon
 // import StarIcon from "@material-ui/icons/Star";
 
 export default function ActivityDetail({ match }) {
     dayjs.extend(relativeTime);
+
+    const [loading, setLoading] = useState(false);
+    //Reviews Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [reviewPerPage] = useState(5);
 
     const [item, setItem] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -34,86 +39,48 @@ export default function ActivityDetail({ match }) {
 
     useEffect(() => {
         async function fetchReviews() {
+            setLoading(true);
             const response = await fetch(`/showComments?id=${match.params.id}`);
             const reviews = await response.json();
             if (response.ok) {
                 setReviews(reviews);
             }
+            setLoading(false);
         }
         fetchReviews();
     }, [match]);
 
+    // Get current reviews
+    const indexOfLastReview = currentPage * reviewPerPage;
+    const indexOfFirstReview = indexOfLastReview - reviewPerPage;
+    const currentReview = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     return (
         <React.Fragment>
-            <Banner />
+            <Banner image={item.imageURL} />
             <Container className="mt-5 mb-5">
-                <Row container spacing={3}>
+                <Row spacing={3}>
                     <Col xs={8}>
                         <h1>{item.name}</h1>
                         <h6>{item.address}</h6>
                         <hr />
-                        <p className="pt-4 pb-4">{item.details}</p>
-                        <hr />
-                        <div className="highlight p-3 mb-3">
-                            <Row>
-                                <Col>
-                                    <h4 className="m-0">
-                                        Reviews{" "}
-                                        <Badge variant="primary">
-                                            {item.totalRatingCount}
-                                        </Badge>
-                                    </h4>
-                                </Col>
-                                <Col className="text-right">
-                                    <h5 className="text-warning m-0">
-                                        <i className="fas fa-star mr-2"></i>
-                                        {item.rating}
-                                    </h5>
-                                </Col>
-                            </Row>
+                        <div className="pt-4 pb-4">
+                            <FroalaEditorView model={item.details} />
                         </div>
-
-                        {reviews &&
-                            reviews.map(review => (
-                                <div
-                                    className="reviews-wrapper"
-                                    key={review.id}
-                                >
-                                    <Media className="pl-3 pr-3">
-                                        <Avatar
-                                            name={review.name}
-                                            size="50"
-                                            round={true}
-                                            className="mr-3"
-                                        />
-                                        <Media.Body>
-                                            <Row className="mb-2 mt-2">
-                                                <Col>
-                                                    <h5 className="m-0">
-                                                        {review.name}
-                                                    </h5>
-                                                    <small className="text-secondary">
-                                                        {dayjs(
-                                                            review.dateCreated
-                                                        ).fromNow()}
-                                                    </small>
-                                                </Col>
-                                                <Col className="text-right">
-                                                    <span className="text-warning">
-                                                        <i className="fas fa-star mr-2"></i>
-                                                        {review.rate}
-                                                    </span>
-                                                </Col>
-                                            </Row>
-                                            <p className="m-0">
-                                                {review.comment}
-                                            </p>
-                                        </Media.Body>
-                                    </Media>
-
-                                    <hr />
-                                </div>
-                            ))}
+                        <hr />
+                        <Comments
+                            currentReview={currentReview}
+                            loading={loading}
+                            item={item}
+                        />
+                        <Pagination
+                            itemPerPage={reviewPerPage}
+                            totalItems={reviews.length}
+                            paginate={paginate}
+                        />
                     </Col>
                     <Col xs={4}>
                         <Card>

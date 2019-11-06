@@ -46,6 +46,19 @@ a {
     margin: 0 auto;
     background-color: rgb(220, 0, 78) !important;
 }
+
+.activity_banner .carousel-inner {
+    height: 500px;
+}
+
+.custom-tabs > .nav-link.active,
+.custom-tabs .show > .nav-link {
+    color: #696565;
+    background-color: #f3f3f3;
+    /* border-bottom: 6px solid #ff7c7c; */
+    border-radius: 0;
+}
+
 .m_bg {
     background-repeat: no-repeat;
     background-size: cover;
