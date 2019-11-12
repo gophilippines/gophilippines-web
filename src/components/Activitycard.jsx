@@ -25,7 +25,7 @@ function Topactivity(props) {
 
                 <Card.Body>
                     <Card.Title className="text-dark text-uppercase h6 mb-0">
-                        {props.card.name}
+                        {props.card.name ? props.card.name : props.card.company}
                     </Card.Title>
                 </Card.Body>
                 <Card.Footer>

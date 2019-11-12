@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateCityAction } from "../../redux/CityRedux";
+import { updateCityAction, uploadCityImageAction } from "../../redux/CityRedux";
 import Sidebar from "../../components/SideNav";
 import { Link } from "react-router-dom";
 // MUI
@@ -14,21 +14,38 @@ function City({ match }) {
 
     const [city, setCity] = useState({});
 
-    useEffect(() => {
-        async function fetchItemData() {
-            const fetchItem = await fetch(`/cityById?id=${match.params.id}`);
-            const item = await fetchItem.json();
-            setCity(item);
-        }
-        fetchItemData();
-    }, [match]);
+    useEffect(
+        () => {
+            async function fetchItemData() {
+                const fetchItem = await fetch(
+                    `/cityById?id=${match.params.id}`
+                );
+                const item = await fetchItem.json();
+                setCity(item);
+            }
+            fetchItemData();
+        },
+        [match]
+    );
 
     const dispatch = useDispatch();
 
     const updateCity = city => dispatch(updateCityAction(city));
+    const uploadCityImage = formData =>
+        dispatch(uploadCityImageAction(formData));
 
     const onChange = event => {
         setCity({ ...city, [event.target.name]: event.target.value });
+    };
+    const handleImageChange = event => {
+        const image = event.target.files[0];
+        const formData = new FormData();
+        formData.append("file", image);
+        uploadCityImage({
+            id: city.id,
+            data: formData
+        });
+        // this.props.uploadImage(formData);
     };
 
     const onSubmit = event => {
@@ -49,6 +66,15 @@ function City({ match }) {
             <div className="page-content-wrapper">
                 <h1>Update City Page</h1>
                 <Row>
+                    <Col sm={3}>
+                        <img src={city.imageURL} alt="" width="100%" />
+                        <br />
+                        <input
+                            type="file"
+                            id="imageInput"
+                            onChange={handleImageChange}
+                        />
+                    </Col>
                     <Col>
                         <Form onSubmit={onSubmit} className="mt-5">
                             <Form.Group as={Row}>
@@ -81,10 +107,24 @@ function City({ match }) {
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
+                                        as="select"
                                         name="recommended"
                                         onChange={onChange}
                                         value={city.recommended}
-                                    />
+                                    >
+                                        <option
+                                            value="true"
+                                            className="text-capetalize"
+                                        >
+                                            true
+                                        </option>
+                                        <option
+                                            value="false"
+                                            className="text-capetalize"
+                                        >
+                                            false
+                                        </option>
+                                    </Form.Control>
                                 </Col>
                             </Form.Group>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCityAction } from "../../redux/CityRedux";
+import { addTransportAction } from "../../redux/TransportRedux";
 import Sidebar from "../../components/SideNav";
 import { Link } from "react-router-dom";
 // MUI
@@ -9,25 +9,27 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-function City() {
-    const [city, setCity] = useState({});
+function Transport() {
+    const [transport, setTransport] = useState({});
 
     const dispatch = useDispatch();
 
-    const addCity = city => dispatch(addCityAction(city));
+    const addTransport = transport => dispatch(addTransportAction(transport));
 
     const onChange = event => {
-        setCity({ ...city, [event.target.name]: event.target.value });
+        setTransport({ ...transport, [event.target.name]: event.target.value });
     };
 
     const onSubmit = event => {
         event.preventDefault();
 
-        addCity({
-            name: city.name,
-            details: city.details,
-            recommended: city.recommended,
-            location: city.location
+        addTransport({
+            company: transport.company,
+            address: transport.address,
+            details: transport.details,
+            recommended: transport.recommended,
+            price: transport.price,
+            city_id: transport.city_id
         });
     };
 
@@ -35,19 +37,43 @@ function City() {
         <div id="wrapper">
             <Sidebar />
             <div className="page-content-wrapper">
-                <h1>City Page</h1>
+                <h1>Transport Page</h1>
                 <Row>
                     <Col>
                         <Form onSubmit={onSubmit} className="mt-5">
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">
-                                    name
+                                    City
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
-                                        name="name"
+                                        name="city_id"
                                         onChange={onChange}
-                                        value={city.name}
+                                        value={transport.city_id}
+                                    />
+                                </Col>
+                            </Form.Group>
+                            <Form.Group as={Row}>
+                                <Form.Label column sm="3">
+                                    company
+                                </Form.Label>
+                                <Col>
+                                    <Form.Control
+                                        name="company"
+                                        onChange={onChange}
+                                        value={transport.company}
+                                    />
+                                </Col>
+                            </Form.Group>
+                            <Form.Group as={Row}>
+                                <Form.Label column sm="3">
+                                    address
+                                </Form.Label>
+                                <Col>
+                                    <Form.Control
+                                        name="address"
+                                        onChange={onChange}
+                                        value={transport.address}
                                     />
                                 </Col>
                             </Form.Group>
@@ -59,7 +85,7 @@ function City() {
                                     <Form.Control
                                         name="details"
                                         onChange={onChange}
-                                        value={city.details}
+                                        value={transport.details}
                                     />
                                 </Col>
                             </Form.Group>
@@ -72,7 +98,7 @@ function City() {
                                         as="select"
                                         name="recommended"
                                         onChange={onChange}
-                                        value={city.recommended}
+                                        value={transport.recommended}
                                     >
                                         <option
                                             value="true"
@@ -92,24 +118,24 @@ function City() {
 
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">
-                                    location
+                                    price
                                 </Form.Label>
                                 <Col>
                                     <Form.Control
-                                        name="location"
+                                        name="price"
                                         onChange={onChange}
-                                        value={city.location}
+                                        value={transport.price}
                                     />
                                 </Col>
                             </Form.Group>
                             <Form.Group className="text-right">
                                 <Link
                                     className="btn btn-secondary btn-md mr-2"
-                                    to="/dashboard/city"
+                                    to="/dashboard/transport"
                                 >
                                     Cancel
                                 </Link>
-                                <Button type="submit">Add City</Button>
+                                <Button type="submit">Add Transport</Button>
                             </Form.Group>
                         </Form>
                     </Col>
@@ -119,4 +145,4 @@ function City() {
     );
 }
 
-export default City;
+export default Transport;

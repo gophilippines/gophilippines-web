@@ -10,9 +10,13 @@ import axios from "axios";
 export default function reducer(state = [], action) {
     switch (action.type) {
         case "GET_CITY":
+            // return {
+            //     ...state,
+            //     data: [...state, action.payload]
+            // };
             return {
                 ...state,
-                data: [...state, action.payload]
+                data: action.payload
             };
         case "ADD_CITY":
             return {
@@ -80,4 +84,10 @@ export const deleteCityAction = cityID => dispatch => {
             // });
         })
         .catch(err => {});
+};
+
+export const uploadCityImageAction = city => dispatch => {
+    axios.post(`/cityImageUpload/${city.id}`, city.data).then(res => {
+        // console.log(res);
+    });
 };

@@ -15,6 +15,7 @@ body {
     color: #4caf50 !important;
 }
 /* END Color Theme */
+/* Custom Stlye */
 .container {
     max-width: 1280px;
 }
@@ -33,7 +34,9 @@ a {
     right: 0;
     padding: 15px;
 }
-
+.react-datepicker-wrapper {
+    display: block !important;
+}
 .no-gutter {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -68,6 +71,10 @@ a {
     background-color: #e0e0e0;
     overflow: hidden;
 }
+.font-weight-500 {
+    font-weight: 500;
+}
+/* End Custom Style */
 /* Card custom style */
 .card {
     color: hsl(0, 0%, 60%);

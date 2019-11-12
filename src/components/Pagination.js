@@ -10,7 +10,7 @@ const Pagination = ({ itemPerPage, totalItems, paginate }) => {
     return (
         <React.Fragment>
             <nav>
-                <ul className="pagination">
+                <ul className="pagination  justify-content-center">
                     {pageNumbers.map(number => (
                         <li key={number} className="page-item">
                             <button

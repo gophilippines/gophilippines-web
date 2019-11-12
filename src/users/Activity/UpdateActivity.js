@@ -25,20 +25,21 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditor from "react-froala-wysiwyg";
 
 function Activity({ match }) {
-    // const activityData = useSelector(state => state.activity);
-
     const [activity, setActivity] = useState({});
 
-    useEffect(() => {
-        async function fetchItemData() {
-            const fetchItem = await fetch(
-                `/activityById?id=${match.params.id}`
-            );
-            const item = await fetchItem.json();
-            setActivity(item);
-        }
-        fetchItemData();
-    }, [match]);
+    useEffect(
+        () => {
+            async function fetchItemData() {
+                const fetchItem = await fetch(
+                    `/activityById?id=${match.params.id}`
+                );
+                const item = await fetchItem.json();
+                setActivity(item);
+            }
+            fetchItemData();
+        },
+        [match]
+    );
 
     const dispatch = useDispatch();
 
@@ -48,6 +49,7 @@ function Activity({ match }) {
 
     const onChange = event => {
         setActivity({ ...activity, [event.target.name]: event.target.value });
+        console.log(activity.recommended);
     };
     const handleWYSIWYGChange = content => {
         setActivity({ ...activity, details: content });
@@ -61,7 +63,7 @@ function Activity({ match }) {
             details: activity.details,
             address: activity.address,
             city_id: activity.city_id,
-            recommended: Boolean.valueOf(activity.recommended),
+            recommended: activity.recommended,
             price: activity.price
         });
     };

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getActivity, deleteActivityAction } from "../../redux/ActivityRedux";
 import { Link } from "react-router-dom";
@@ -11,36 +11,24 @@ import Button from "react-bootstrap/Button";
 
 function Activity() {
     const activityData = useSelector(state => state.activities.data);
-
     const dispatch = useDispatch();
 
     const deleteActivity = activity => dispatch(deleteActivityAction(activity));
 
-    const initFetch = useCallback(() => {
-        dispatch(getActivity());
-    }, [dispatch]);
+    // const initFetch = useCallback(() => {}, [dispatch]);
 
-    useEffect(() => {
-        initFetch();
-    }, [initFetch]);
+    useEffect(
+        () => {
+            dispatch(getActivity());
+        },
+        [dispatch]
+    );
 
     const onDelete = event => {
         event.preventDefault();
         deleteActivity(event.target.id);
-        // console.log(event.target.id);
     };
 
-    // const [activityList, setActivityList] = useState([]);
-    // useEffect(() => {
-    //     async function fetchActivity() {
-    //         const fetchItem = await fetch(
-    //             `/activityByCityId?id=3bhJa26hT9nbSfCvSzhp`
-    //         );
-    //         const activityList = await fetchItem.json();
-    //         setActivityList(activityList);
-    //     }
-    //     fetchActivity();
-    // }, []);
     return (
         <div id="wrapper">
             <Sidebar />
@@ -70,7 +58,7 @@ function Activity() {
                             </thead>
                             <tbody>
                                 {activityData &&
-                                    activityData[0].map(data => (
+                                    activityData.map(data => (
                                         <tr key={data.id}>
                                             <td>{data.name}</td>
                                             <td>{String(data.recommended)}</td>
@@ -79,7 +67,7 @@ function Activity() {
                                                     to={`/dashboard/updateActivity/${data.id}`}
                                                     className="btn btn-primary btn-md mr-2"
                                                 >
-                                                    <i className="fas fa-pencil-alt"></i>
+                                                    <i className="fas fa-pencil-alt" />
                                                 </Link>
 
                                                 <Button
@@ -91,7 +79,7 @@ function Activity() {
                                                     <i
                                                         className="fas fa-trash-alt"
                                                         id={data.id}
-                                                    ></i>
+                                                    />
                                                 </Button>
                                             </td>
                                         </tr>

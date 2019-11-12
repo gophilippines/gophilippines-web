@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export default function CityDetail({ items, loading }) {
+export default function CityDetail({ items, loading, itemType }) {
     if (loading) {
         return <h2>Loading...</h2>;
     }
@@ -16,7 +16,7 @@ export default function CityDetail({ items, loading }) {
                 {items &&
                     items.map(card => (
                         <Col lg={4} key={card.id} className="mb-3">
-                            <Link to={`/activity/${card.id}`}>
+                            <Link to={`/${itemType}/${card.id}`}>
                                 <Activitycard card={card} />
                             </Link>
                         </Col>

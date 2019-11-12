@@ -5,6 +5,7 @@ import userReducer from "./reducers/userReducer";
 import uiReducer from "./reducers/uiReducer";
 import activityReducer from "./ActivityRedux";
 import cityReducer from "./CityRedux";
+import transportReducer from "./TransportRedux";
 
 const initialState = {};
 
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     user: userReducer,
     UI: uiReducer,
     activities: activityReducer,
-    cities: cityReducer
+    cities: cityReducer,
+    transport: transportReducer
 });
 
 const composeEnhancers =

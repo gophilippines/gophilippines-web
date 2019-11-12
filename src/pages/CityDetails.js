@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import ActivityList from "../components/ItemList";
+import ItemList from "../components/ItemList";
 import ActivitySideNav from "../components/FilterNav";
 import Pagination from "../components/Pagination";
 
@@ -15,47 +15,87 @@ import Nav from "react-bootstrap/Nav";
 export default function CityDetail({ match }) {
     const [key, setKey] = useState("Activities");
 
-    // const [posts, setPosts] = useState([]);
+    //Activity options
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(9);
+    const [postsPerPage] = useState(6);
+
+    //Transport options
+    const [loadingTransport, setLoadingTransport] = useState(false);
+    const [currentPageTransport, setCurrentPageTransport] = useState(1);
+    const [transportPerPage] = useState(6);
 
     const [activity, setActivity] = useState([]);
+    const [transport, setTransport] = useState([]);
     const [item, setItem] = useState({});
 
-    useEffect(() => {
-        async function fetchItemData() {
-            setLoading(true);
-            const response = await fetch(`/cityById?id=${match.params.id}`);
-            const item = await response.json();
-            if (response.ok) {
-                setItem(item);
+    useEffect(
+        () => {
+            async function fetchItemData() {
+                const response = await fetch(`/cityById?id=${match.params.id}`);
+                const item = await response.json();
+                if (response.ok) {
+                    setItem(item);
+                }
             }
-            setLoading(false);
-        }
-        fetchItemData();
-    }, [match]);
+            fetchItemData();
+        },
+        [match]
+    );
 
-    useEffect(() => {
-        async function fetchActivity() {
-            const response = await fetch(
-                `/activityByCityId?id=${match.params.id}`
-            );
-            const activity = await response.json();
-            if (response.ok) {
-                setActivity(activity);
+    useEffect(
+        () => {
+            async function fetchActivity() {
+                setLoading(true);
+                const response = await fetch(
+                    `/activityByCityId?id=${match.params.id}`
+                );
+                const activity = await response.json();
+                if (response.ok) {
+                    setActivity(activity);
+                }
+                setLoading(false);
             }
-        }
-        fetchActivity();
-    }, [match]);
+            fetchActivity();
+        },
+        [match]
+    );
 
+    useEffect(
+        () => {
+            async function fetchTransport() {
+                setLoadingTransport(true);
+                const response = await fetch(
+                    `/transportationByCityId?id=${match.params.id}`
+                );
+                const transport = await response.json();
+                if (response.ok) {
+                    setTransport(transport);
+                }
+                setLoadingTransport(false);
+            }
+            fetchTransport();
+        },
+        [match]
+    );
+    // Pagination for Activity
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = activity.slice(indexOfFirstPost, indexOfLastPost);
-
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
+
+    // Pagination for Transport
+    // Get current posts
+    const indexOfLastTransport = currentPageTransport * transportPerPage;
+    const indexOfFirstTransport = indexOfLastTransport - transportPerPage;
+    const currentTransport = transport.slice(
+        indexOfFirstTransport,
+        indexOfLastTransport
+    );
+    // Change page
+    const paginateTransport = pageNumber => setCurrentPageTransport(pageNumber);
 
     return (
         <React.Fragment>
@@ -66,7 +106,9 @@ export default function CityDetail({ match }) {
                 }}
             >
                 <div className="container text-center">
-                    <h1 className="display-4 mt-5 mb-5">{item.name}</h1>
+                    <h1 className="display-4 mt-5 mb-5 font-weight-500 text-white">
+                        {item.name}
+                    </h1>
                 </div>
             </div>
 
@@ -80,10 +122,9 @@ export default function CityDetail({ match }) {
                     <Nav className="row text-center custom-tabs mb-5">
                         <Nav.Link
                             eventKey="Activities"
-                            className="col p-5 m_bg"
+                            className="col p-5"
                             style={{
-                                backgroundImage:
-                                    "url(https://cdn3.iconfinder.com/data/icons/travel-activities/500/travel-activity-vacation_3-512.png)"
+                                backgroundImage: "url()"
                             }}
                         >
                             <h5 className="text-uppercase">
@@ -113,9 +154,10 @@ export default function CityDetail({ match }) {
                                         {/* Top things to do in {item.name} */}
                                         {activity.length} Activities found
                                     </h4>
-                                    <ActivityList
+                                    <ItemList
                                         items={currentPosts}
                                         loading={loading}
+                                        itemType={"activity"}
                                     />
                                     <Pagination
                                         itemPerPage={postsPerPage}
@@ -125,11 +167,29 @@ export default function CityDetail({ match }) {
                                 </Col>
                             </Row>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Tours">
-                            {/* <Sonnet /> */}2
-                        </Tab.Pane>
+                        <Tab.Pane eventKey="Tours" />
                         <Tab.Pane eventKey="Transport">
-                            {/* <Sonnet /> */}3
+                            <Row>
+                                <Col xs={3} className="border-right">
+                                    <ActivitySideNav />
+                                </Col>
+                                <Col>
+                                    <h4 className="mb-3">
+                                        {/* Top things to do in {item.name} */}
+                                        {transport.length} Transportation found
+                                    </h4>
+                                    <ItemList
+                                        items={currentTransport}
+                                        loading={loadingTransport}
+                                        itemType={"transport"}
+                                    />
+                                    <Pagination
+                                        itemPerPage={transportPerPage}
+                                        totalItems={transport.length}
+                                        paginate={paginateTransport}
+                                    />
+                                </Col>
+                            </Row>
                         </Tab.Pane>
                     </Tab.Content>
                 </Tab.Container>

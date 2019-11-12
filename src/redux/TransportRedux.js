@@ -10,21 +10,21 @@ import "toastr/build/toastr.min.css";
 // Reducer
 export default function reducer(state = [], action) {
     switch (action.type) {
-        case "GET_ACTIVITY":
+        case "GET_TRANSPORT":
             return { ...state, data: action.payload };
-        case "ADD_ACTIVITY":
+        case "ADD_TRANSPORT":
             return {
                 ...state,
                 data: [...state, action.payload]
             };
-        case "UPDATE_ACTIVITY":
+        case "UPDATE_TRANSPORT":
             return action.payload;
 
-        case "DELETE_ACTIVITY":
+        case "DELETE_TRANSPORT":
             return {
                 ...state,
                 data: state.data.filter(
-                    activity => activity.name !== action.payload
+                    transport => transport.name !== action.payload
                 )
             };
         default:
@@ -32,65 +32,66 @@ export default function reducer(state = [], action) {
     }
 }
 
-export const getActivity = () => dispatch => {
+export const getTransport = () => dispatch => {
     axios
-        .get("/activityList")
+        .get("/transportationList")
         .then(res => {
             dispatch({
-                type: "GET_ACTIVITY",
+                type: "GET_TRANSPORT",
                 payload: res.data
             });
         })
         .catch(err => console.log(err));
 };
 
-export const addActivityAction = (activity, history) => dispatch => {
+export const addTransportAction = (transport, history) => dispatch => {
     axios
-        .post(`/addActivity?id=${activity.city_id}`, activity)
+        .post(`/addTransportation?id=${transport.city_id}`, transport)
         .then(res => {
             dispatch({
-                type: "ADD_ACTIVITY",
+                type: "ADD_TRANSPORT",
                 payload: res.data
             });
-            window.location.href = "/dashboard/activity";
+            window.location.href = "/dashboard/transport";
             // toastr.success(`Activty has been created `);
         })
         .catch(err => {});
 };
 
-export const updateActivityAction = activity => dispatch => {
+export const updateTransportAction = transport => dispatch => {
+    console.log(transport);
     axios
-        .put(`/updateActivity?id=${activity.id}`, activity)
+        .put(`/updateTransportation?id=${transport.id}`, transport)
         .then(res => {
             dispatch({
-                type: "UPDATE_ACTIVITY",
+                type: "UPDATE_TRANSPORT",
                 payload: res.data
             });
-            // history.push("/dashboard/activity");
-            toastr.success(`Update Activity `);
+            // history.push("/dashboard/transport");
+            toastr.success(`Update Transport `);
 
-            // window.location.href = "/dashboard/activity";
+            // window.location.href = "/dashboard/transport";
         })
         .catch(err => {});
 };
 
-export const deleteActivityAction = activityID => dispatch => {
-    getActivity();
+export const deleteTransportAction = transportID => dispatch => {
+    getTransport();
 
     axios
-        .delete(`/deleteActivity/${activityID}`)
+        .delete(`/deleteTransportation/${transportID}`)
         .then(res => {
             dispatch({
-                type: "DELETE_ACTIVITY",
+                type: "DELETE_TRANSPORT",
                 payload: res.data
             });
         })
         .catch(err => {});
 };
 
-export const uploadActivityImageAction = activity => dispatch => {
+export const uploadTransportImageAction = transport => dispatch => {
     axios
-        .post(`/activityImageUpload/${activity.id}`, activity.data)
+        .post(`/transportationImageUpload/${transport.id}`, transport.data)
         .then(res => {
             // console.log(res);
         });

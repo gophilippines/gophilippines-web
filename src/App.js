@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./assets/App.css";
+import "./assets/Responsive.css";
 //Redux
 import { Provider } from "react-redux";
 //Components
@@ -10,8 +11,9 @@ import AuthRoute from "./util/AuthRoute";
 
 // Pages
 import home from "./pages/Home";
-import cityDetail from "./pages/CityDetail";
-import activityDetail from "./pages/ActivityDetail";
+import cityDetail from "./pages/CityDetails";
+import activityDetail from "./pages/ActivityDetails";
+import transportDetail from "./pages/TransporDetails";
 
 //admin
 import dashboard from "./users/Dashboard";
@@ -25,6 +27,11 @@ import updateActivity from "./users/Activity/UpdateActivity";
 import city from "./users/City/City";
 import createCity from "./users/City/CreateCity";
 import updateCity from "./users/City/UpdateCity";
+
+import transport from "./users/Transport/Transport";
+import createTransport from "./users/Transport/CreateTransport";
+import updateTransport from "./users/Transport/UpdateTransport";
+
 // axios.defaults.baseURL =
 //     "https://asia-east2-dev-gophil-1009.cloudfunctions.net/api";
 
@@ -61,7 +68,11 @@ class App extends Component {
                             path="/activity/:id"
                             component={activityDetail}
                         />
-
+                        <Route
+                            exact
+                            path="/transport/:id"
+                            component={transportDetail}
+                        />
                         <Route exact path="/dashboard" component={dashboard} />
 
                         <Route
@@ -90,6 +101,22 @@ class App extends Component {
                             exact
                             path="/dashboard/updateCity/:id"
                             component={updateCity}
+                        />
+
+                        <Route
+                            exact
+                            path="/dashboard/transport"
+                            component={transport}
+                        />
+                        <Route
+                            exact
+                            path="/dashboard/createTransport"
+                            component={createTransport}
+                        />
+                        <Route
+                            exact
+                            path="/dashboard/updateTransport/:id"
+                            component={updateTransport}
                         />
 
                         <AuthRoute exact path="/login" component={login} />

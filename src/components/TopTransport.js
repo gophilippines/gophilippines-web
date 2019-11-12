@@ -7,33 +7,33 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 
 class Topcity extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            city: []
-        };
-    }
-    // componentDidMount() {
-    //     axios
-    //         .get("/cityByRecommended")
-    //         .then(res => {
-    //             this.setState({
-    //                 city: res.data
-    //             });
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      city: []
+    };
+  }
+  // componentDidMount() {
+  //     axios
+  //         .get("/cityByRecommended")
+  //         .then(res => {
+  //             this.setState({
+  //                 city: res.data
+  //             });
+  //         })
+  //         .catch(error => {
+  //             console.log(error);
+  //         });
+  // }
 
-    render() {
-        return (
-            <React.Fragment>
-                <h4 className="mb-3 text-center  text-uppercase">
-                    Transport & Travel Services
-                </h4>
-                <Row>
-                    {/* {this.state.city.map(card => (
+  render() {
+    return (
+      <React.Fragment>
+        <h4 className="mb-3 text-center  text-uppercase">
+          Transport & Travel Services
+        </h4>
+        <Row>
+          {/* {this.state.city.map(card => (
                         <Col xs={3} key={card.id}>
                             <div
                                 className="city_wrapper"
@@ -54,9 +54,9 @@ class Topcity extends Component {
                             </div>
                         </Col>
                     ))} */}
-                </Row>
-            </React.Fragment>
-        );
-    }
+        </Row>
+      </React.Fragment>
+    );
+  }
 }
 export default Topcity;

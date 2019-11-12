@@ -43,9 +43,7 @@ class login extends Component {
         });
     };
     render() {
-        const {
-            UI: { loading }
-        } = this.props;
+        const { UI: { loading } } = this.props;
         const { errors } = this.state;
 
         return (
@@ -92,8 +90,10 @@ class login extends Component {
                                 type="submit"
                                 variant="primary"
                                 disabled={loading}
+                                // onClick={!loading ? handleClick : null}
                             >
-                                Login
+                                login
+                                {/* {loading ? 'Loading <Spinner animation="border" />' : 'Login'} */}
                                 {loading && <Spinner animation="border" />}
                             </Button>
                         </Form>
@@ -120,7 +120,4 @@ const mapActionsToProps = {
     loginUser
 };
 
-export default connect(
-    mapStateToProps,
-    mapActionsToProps
-)(login);
+export default connect(mapStateToProps, mapActionsToProps)(login);
