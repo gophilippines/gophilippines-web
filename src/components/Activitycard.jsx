@@ -24,20 +24,20 @@ function Topactivity(props) {
 				/>
 
 				<Card.Body>
-					<Card.Title className="text-dark text-uppercase h6 mb-0">
+					<Card.Title className="text-dark text-uppercase h5 mb-0">
 						{props.card.name ? props.card.name : props.card.company}
 					</Card.Title>
 				</Card.Body>
 				<Card.Footer>
 					<Row>
 						<Col xs={8}>
-							<b className="text-success">₱{props.card.price} </b>
-							<br /> <small>Available</small>
+							<h5 className="text-success">₱{props.card.price} </h5>
+							<span>Available</span>
 						</Col>
 						<Col xs={4} className="text-right text-warning">
-							<small className="font-weight-bold">
+							<span className="font-weight-bold">
 								<i className="fas fa-star" /> {props.card.rating}
-							</small>
+							</span>
 						</Col>
 					</Row>
 				</Card.Footer>

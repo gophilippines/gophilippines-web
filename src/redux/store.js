@@ -1,24 +1,28 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import userReducer from './reducers/userReducer';
+import usersReducer from './reducers/userReducer';
 import uiReducer from './reducers/uiReducer';
 import activityReducer from './ActivityRedux';
 import cityReducer from './CityRedux';
 import transportReducer from './TransportRedux';
 import bookingReducer from './BookingRedux';
+import commentReducer from './CommentRedux';
+// import userReducer from './UserRedux';
 
 const initialState = {};
 
 const middleware = [ thunk ];
 
 const reducers = combineReducers({
-	user: userReducer,
+	user: usersReducer,
 	UI: uiReducer,
 	activities: activityReducer,
 	cities: cityReducer,
 	transport: transportReducer,
-	booking: bookingReducer
+	booking: bookingReducer,
+	comment: commentReducer
+	// users: userReducer
 });
 
 const composeEnhancers =

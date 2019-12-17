@@ -36,7 +36,7 @@ export default function BookingForm({ itemData }) {
 	}
 	function decrementCount(event, count) {
 		const result = count - 1;
-		if (result > 0) {
+		if (result > 1) {
 			setCount(result);
 			setBooking({ ...booking, totalPrice: (countChild + result) * itemData.price });
 		} else {
@@ -100,11 +100,11 @@ export default function BookingForm({ itemData }) {
 	return (
 		<React.Fragment>
 			<Card>
-				<Card.Header className="bg-dark text-white">
+				<Card.Header className="bg-success text-white">
 					<h3 className="m-0">₱ {itemData.price}</h3>
 				</Card.Header>
 				<Card.Body>
-					<Form onSubmit={handleSubmitBook}>
+					<Form onSubmit={handleSubmitBook} autocomplete="off">
 						<Form.Group as={Row}>
 							<Form.Label column sm="12">
 								Select Date
@@ -115,14 +115,12 @@ export default function BookingForm({ itemData }) {
 									selected={startDate}
 									onChange={(date) => setStartDate(date)}
 									className="form-control"
+									placeholder="Select Date"
 									value={booking.date}
 								/>
 							</Col>
 						</Form.Group>
-						<Form.Group as={Row}>
-							{/* <Form.Label column sm="4">
-                                Name
-                            </Form.Label> */}
+						{/* <Form.Group as={Row}>
 							<Col>
 								<Form.Control
 									name="fullName"
@@ -132,25 +130,19 @@ export default function BookingForm({ itemData }) {
 									onChange={onChange}
 								/>
 							</Col>
-						</Form.Group>
-						<Form.Group as={Row}>
-							{/* <Form.Label column sm="4">
-                                Email
-                            </Form.Label> */}
+						</Form.Group> */}
+						{/* <Form.Group as={Row}>
 							<Col>
 								<Form.Control
 									name="email"
 									type="email"
-									placeholder="Enter email"
+									placeholder="Email"
 									value={booking.email}
 									onChange={onChange}
 								/>
 							</Col>
 						</Form.Group>
 						<Form.Group as={Row}>
-							{/* <Form.Label column sm="4">
-                                Contact No.
-                            </Form.Label> */}
 							<Col>
 								<Form.Control
 									name="contact"
@@ -160,7 +152,7 @@ export default function BookingForm({ itemData }) {
 									onChange={onChange}
 								/>
 							</Col>
-						</Form.Group>
+						</Form.Group> */}
 						{/* <Form.Group>
 							<Form.Label>Select Package options</Form.Label> <br />
 							<ButtonGroup toggle className="mt-3">
@@ -240,7 +232,7 @@ export default function BookingForm({ itemData }) {
 						</Form.Group>
 						<Form.Group as={Row}>
 							<Form.Label column sm="6">
-								Total price
+								Total Price
 							</Form.Label>
 
 							<Col className="text-right">
@@ -256,7 +248,7 @@ export default function BookingForm({ itemData }) {
 							</Col>
 						</Form.Group>
 						<Form.Group>
-							<Button type="submit" variant="danger" className="w-100">
+							<Button type="submit" variant="success" className="w-100">
 								Book Now!
 							</Button>
 						</Form.Group>

@@ -2,13 +2,14 @@ html,
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 		"Droid Sans", "Helvetica Neue", sans-serif;
-	background-color: #fff !important;
-	font-size: 1rem !important;
+	background-color: #f5f5f5 !important;
+	font-size: 14px !important;
 }
 .siteLogo {
 	position: absolute;
 	top: 0;
-	z-index: 333333;
+	left: 15px;
+	z-index: 1;
 }
 /* Color Theme */
 .text-warning {
@@ -36,6 +37,17 @@ a {
 	left: 0;
 	right: 0;
 	padding: 15px;
+}
+.subscribe_form input {
+	background: transparent;
+	border-radius: 0;
+	border: 1px solid #fff;
+	color: #fff;
+}
+.subscribe_form button {
+	border-radius: 0;
+	border: 2px solid;
+	border-color: #017bff;
 }
 .react-datepicker-wrapper {
 	display: block !important;
@@ -73,16 +85,56 @@ a {
 	height: 100%;
 	width: 100%;
 	background-position: center center;
-	background-color: #e0e0e0;
+	/* background-color: #e0e0e0; */
 	overflow: hidden;
 }
 .font-weight-500 {
 	font-weight: 500;
 }
+.react-datepicker-popper {
+	z-index: 3 !important;
+}
+.nav-user-profile {
+	border-radius: 50%;
+	width: 32px;
+	height: 32px;
+	margin-left: 5px;
+}
+.navbar nav > ul > li.nav-item {
+	float: left;
+	padding: 0 10px;
+	height: 32px;
+	margin: 16px 0;
+	line-height: 32px;
+}
+.navbar nav > ul > li > a {
+	padding: 0;
+}
+.navbar .dropdown-menu {
+	right: 0;
+	left: unset;
+}
+.file-upload {
+	cursor: pointer;
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #fff;
+}
+.file-upload input[type='file'] {
+	display: none;
+}
+.fa-w-20 {
+	width: 2em;
+}
+.fa-w-10 {
+	width: 1em;
+}
+
 /* End Custom Style */
 /* Card custom style */
 .card {
-	color: hsl(0, 0%, 60%);
+	/* color: hsl(0, 0%, 60%); */
 	border-radius: 4px;
 	box-shadow: hsl(0, 0%, 86%) 0 0 10px;
 	border: none;
@@ -90,7 +142,7 @@ a {
 	transition: all 0.2s ease;
 }
 .card-img-top {
-	height: 190px;
+	height: 250px;
 }
 .card-body {
 	padding: 1rem 1.25rem;
